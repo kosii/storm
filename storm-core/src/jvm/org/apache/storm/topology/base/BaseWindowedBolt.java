@@ -168,6 +168,22 @@ public abstract class BaseWindowedBolt implements IWindowedBolt {
     }
 
     /**
+     * Specify a stream id on which late tuples are going to be emitted. When using this method,
+     * {@link Config#TOPOLOGY_BOLTS_TUPLE_TIMESTAMP_FIELD_NAME} should be defined on a per component basis before
+     * calling this method, otherwise {@link IllegalArgumentException} will be thrown.
+     *
+     * @param streamId the name of the stream used to emit late tuples on
+     */
+    public BaseWindowedBolt withLateTupleStream(String streamId) {
+        if (!windowConfiguration.containsKey(Config.TOPOLOGY_BOLTS_TUPLE_TIMESTAMP_FIELD_NAME)) {
+            throw new IllegalArgumentException("Timestamp field should be specified before specifying stream for late tuples");
+        }
+        windowConfiguration.put(Config.TOPOLOGY_BOLTS_LATE_TUPLE_STREAM, streamId);
+        return this;
+    }
+
+
+    /**
      * Specify the maximum time lag of the tuple timestamp in milliseconds. It means that the tuple timestamps
      * cannot be out of order by more than this amount.
      *
