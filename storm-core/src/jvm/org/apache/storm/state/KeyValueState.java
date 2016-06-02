@@ -45,4 +45,9 @@ public interface KeyValueState<K, V> extends State {
      * @return the value or defaultValue if no mapping is found
      */
     V get(K key, V defaultValue);
+
+    /**
+     *
+     */
+    V delete(K key);
 }
