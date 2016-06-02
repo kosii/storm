@@ -49,5 +49,5 @@ public interface KeyValueState<K, V> extends State {
     /**
      *
      */
-    V delete(K key);
+    void delete(K key);
 }

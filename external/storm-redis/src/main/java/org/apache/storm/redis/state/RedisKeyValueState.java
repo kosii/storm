@@ -161,6 +161,13 @@ public class RedisKeyValueState<K, V> implements KeyValueState<K, V> {
     }
 
     @Override
+    public void delete(K key) {
+        LOG.debug("delete key '{}'", key);
+        String redisKey = encode(keySerializer.serialize(key));
+
+    }
+
+    @Override
     public void prepareCommit(long txid) {
         LOG.debug("prepareCommit txid {}", txid);
         validatePrepareTxid(txid);
